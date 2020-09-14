@@ -5,6 +5,8 @@ import "./index.css";
 
 function Carrousel() {
   const [items, setItems] = useState<PicsumImage[] | undefined>(undefined);
+  const viewportDiv = useRef<HTMLDivElement>(null);
+  let scroller: any;
 
   const handleItemClick = (id: string) => {
     setItems((prev) => {
@@ -27,6 +29,28 @@ function Carrousel() {
     });
   };
 
+  const handleHoverOn = (side: "right" | "left") => {
+    const node = viewportDiv.current;
+    if (node) {
+      scroller = setInterval(() => scrollX(side, node), 100);
+    }
+  };
+  const handleHoverOut = (side: "right" | "left") => {
+    const node = viewportDiv.current;
+    console.log("I'm outta here");
+    clearInterval(scroller);
+  };
+
+  const scrollX = (direction: "right" | "left", node: HTMLDivElement) => {
+    if (direction === "right" && node.scrollLeft !== node.scrollWidth) {
+      node.scrollBy({ left: 35, behavior: "auto" });
+      console.log(node.scrollLeft);
+    } else {
+      node.scrollBy({ left: -35, behavior: "auto" });
+      console.log(node.scrollLeft);
+    }
+  };
+
   useEffect(() => {
     fetch("https://picsum.photos/v2/list?limit=16")
       .then((res) => res.json())
@@ -38,7 +62,12 @@ function Carrousel() {
 
   return (
     <div className="carrousel">
-      <div className="carrousel-viewport">
+      <div
+        className="scrollLeft"
+        onMouseOver={() => handleHoverOn("left")}
+        onMouseOut={() => handleHoverOut("left")}
+      ></div>
+      <div className="carrousel-viewport" ref={viewportDiv}>
         {items?.map((img) => (
           <CarrouselItem
             key={img.id}
@@ -51,6 +80,11 @@ function Carrousel() {
           />
         ))}
       </div>
+      <div
+        className="scrollRight"
+        onMouseOver={() => handleHoverOn("right")}
+        onMouseOut={() => handleHoverOut("right")}
+      ></div>
     </div>
   );
 }
