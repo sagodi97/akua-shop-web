@@ -24,7 +24,7 @@ function Navbar() {
     navigator.geolocation.getCurrentPosition(function (position) {
       let lat = position.coords.latitude;
       let lon = position.coords.longitude;
-      let api_key = "e72e6f88ca3759cf49beb751e66f5ba4";
+      let api_key = process.env.REACT_APP_WEATHER_API_KEY;
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?units=metric&lat=${lat}&lon=${lon}&appid=${api_key}`
       )
