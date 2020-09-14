@@ -3,10 +3,17 @@ import "./index.css";
 
 function CarrouselItem(props: any) {
   return (
-    <div className="carrousel-item">
+    <div
+      className={
+        props.isExpanded ? "carrousel-item-expanded" : "carrousel-item"
+      }
+      onClick={() => props.onClick()}
+    >
       <img
-        src={"https://source.unsplash.com/random/200x300?sig=" + props.id}
+        src={`https://picsum.photos/200/300?random=${props.id}`}
         alt=""
+        width="200"
+        height="300"
       />
     </div>
   );

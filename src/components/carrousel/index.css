@@ -1,13 +1,12 @@
-.carrousel-viewport {
-  text-align: center;
-
-  width: 100%;
-  margin: 1% 0;
+.carrousel {
   display: flex;
-  justify-content: center;
-  align-items: center;
+}
+.carrousel-viewport {
+  display: flex;
   overflow-x: scroll;
   filter: drop-shadow(0 0 10px #0003);
+  overflow-y: hidden;
+  /* max-width: 90%; */
 }
 
 .carrousel-viewport::-webkit-scrollbar {
@@ -18,7 +17,26 @@
   padding: 3%;
   height: 300px;
   width: 200px;
+  transition-duration: 1000ms;
 }
 .carrousel-item img {
+  cursor: pointer;
   border-radius: 8px;
+  transition-duration: 600ms;
+}
+.carrousel-item-expanded img {
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  transition-duration: 600ms;
+}
+
+.carrousel-item-expanded {
+  padding: 3% 15%;
+  height: 300px;
+  width: 200px;
+  transition-duration: 800ms;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 5%;
 }
