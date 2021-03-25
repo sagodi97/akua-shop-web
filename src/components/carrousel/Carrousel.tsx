@@ -35,12 +35,7 @@ function Carrousel() {
       scroller = setInterval(() => scrollX(side, node), 100);
     }
   };
-  const handleHoverOut = (side: "right" | "left") => {
-    const node = viewportDiv.current;
-    console.log("I'm outta here");
-    clearInterval(scroller);
-  };
-
+  const handleHoverOut = () => scroller && clearInterval(scroller);
   const scrollX = (direction: "right" | "left", node: HTMLDivElement) => {
     if (direction === "right" && node.scrollLeft !== node.scrollWidth) {
       node.scrollBy({ left: 35, behavior: "auto" });
@@ -65,7 +60,7 @@ function Carrousel() {
       <div
         className="scrollLeft"
         onMouseOver={() => handleHoverOn("left")}
-        onMouseOut={() => handleHoverOut("left")}
+        onMouseOut={() => handleHoverOut()}
       ></div>
       <div className="carrousel-viewport" ref={viewportDiv}>
         {items?.map((img) => (
@@ -83,7 +78,7 @@ function Carrousel() {
       <div
         className="scrollRight"
         onMouseOver={() => handleHoverOn("right")}
-        onMouseOut={() => handleHoverOut("right")}
+        onMouseOut={() => handleHoverOut()}
       ></div>
     </div>
   );
