@@ -13,7 +13,6 @@ jobs:
       - name: Setup node 🔧
         uses: actions/setup-node@v3
         with:
-          node-version-file: ".nvmrc"
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
       - name: Cache node_modules 💾
